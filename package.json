@@ -1,0 +1,33 @@
+{
+  "name": "Node-Authentication-API",
+  "version": "1.0.0",
+  "description": "Node Authentication API (Production Ready)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kels-orien/Node-Authentication-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kels-orien/Node-Authentication-API/issues"
+  },
+  "homepage": "https://github.com/kels-orien/Node-Authentication-API#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0"
+  }
+}
