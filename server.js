@@ -2,6 +2,19 @@ import http from "http";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import "dotenv/config";
+
+mongoose
+  .connect(
+    process.env.DB_CONNECTION_STRING,
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("Connection to DB successful");
+  })
+  .catch(err => {
+    console.log(`Connection to DB Error: ${err}`);
+  });
 
 const app = express();
 app.use(cors());
