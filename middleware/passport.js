@@ -20,6 +20,7 @@ passport.use(
       email: "email",
       usernameField: "username",
       passwordField: "password",
+      passReqToCallback: true,
       session: false
     },
     (firstname, lastname, email, username, password, done) => {
@@ -29,7 +30,7 @@ passport.use(
             return done(null, false, { message: "User already exits" });
           } else {
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).THEN(hashedPassword => {
-              const newUser = await new User({
+              const newUser =  new User({
                 firstname,
                 lastname,
                 email,
@@ -44,7 +45,7 @@ passport.use(
       } catch (err) {
         done(err);
       }
-    }
+    },
   )
 );
 
