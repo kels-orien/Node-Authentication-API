@@ -1,4 +1,4 @@
-import User from "../model/user";
+import User from "../models/user";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 
@@ -16,11 +16,11 @@ module.exports = app => {
         req.logIn(user, err => {
           const email = user.email;
           const username = user.username;
-          const user = await User.findOne({ email, username });
+          const user = User.findOne({ email, username });
           if (user) {
             console.log("User already exits");
           } else {
-            const newUser = await new User({
+            const newUser = new User({
               firstname: req.body.firstname,
               lastname: req.body.lastname,
               email: req.body.email,
