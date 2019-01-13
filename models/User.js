@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
-  firstName: {
+  firstname: {
     type: String,
     required: true
   },
-  lastName: {
+  lastname: {
     type: String,
     required: true
   },
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true

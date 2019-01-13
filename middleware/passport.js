@@ -22,25 +22,32 @@ passport.use(
       passReqToCallback: true,
       session: false
     },
-    async (firstname, lastname, email, username, password, done) => {
-      const user = await User.findOne({ email, username });
-      if (user) {
-        return done(null, false, { message: "User already exits" });
-      } else {
-        var hPassword = "";
-        bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
-          hPassword = hashedPassword;
+    (req, email, username, done) => {
+      try {
+        User.findOne({ email, username }).then(user => {
+          if (!user) {
+            return done(null, false, { message: "User already exists" });
+          } else {
+            bcrypt
+              .hash(req.body.password, BCRYPT_SALT_ROUNDS)
+              .then(hashedPassword => {
+                new User({
+                  firstname: req.body.firstname,
+                  lastname: req.body.lastname,
+                  email: req.body.email,
+                  username: req.body.username,
+                  password: hashedPassword
+                })
+                  .save()
+                  .then(newUser => {
+                    console.log("user created in passport");
+                    return done(null, false, { message: "User created after" });
+                  });
+              });
+          }
         });
-
-        const newUser = await new User({
-          firstname,
-          lastname,
-          email,
-          username,
-          password: hPassword
-        }).save();
-        console.log("user created");
-        return done(null, newUser);
+      } catch (err) {
+        done(err);
       }
     }
   )

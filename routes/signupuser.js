@@ -12,28 +12,6 @@ module.exports = app => {
       if (info != undefined) {
         console.log(info.message);
         res.send(info.message);
-      } else {
-        req.logIn(user, err => {
-          const email = user.email;
-          const username = user.username;
-          const user = User.findOne({ email, username });
-          if (user) {
-            console.log("User already exits");
-          } else {
-            const newUser = new User({
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              email: req.body.email,
-              username: req.body.username,
-              password: req.body.password
-            })
-              .save()
-              .then(() => {
-                console.log("user created in db");
-                res.status(200).send({ message: "user created" });
-              });
-          }
-        });
       }
     })(req, res, next);
   });

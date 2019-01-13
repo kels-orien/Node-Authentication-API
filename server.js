@@ -26,10 +26,9 @@ const port = process.env.PORT || 8001;
 app.set("port", port);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(passport.initialize());
 require("./middleware/passport");
 require("./routes/signupuser")(app);
-app.use(passport.initialize());
 
 app.get("/", (req, res, next) => {
   res.send("Node-Authentication Express Server running!");
