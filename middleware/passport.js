@@ -72,7 +72,7 @@ passport.use(
               message: "Wrong username/password deatils"
             });
           } else {
-            bcrypt.compare(password, user, password).then(response => {
+            bcrypt.compare(password, user.password).then(response => {
               if (response != true) {
                 console.log("login details are incorrect");
                 return done(null, false, {
