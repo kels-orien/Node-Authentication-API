@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 require("./middleware/passport");
 require("./routes/signupuser")(app);
-
+require("./routes/signinuser")(app);
 app.get("/", (req, res, next) => {
   res.send("Node-Authentication Express Server running!");
 });

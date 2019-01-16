@@ -25,24 +25,20 @@ passport.use(
     (req, email, username, done) => {
       try {
         User.findOne({ email, username }).then(user => {
-          if (!user) {
+          if (user) {
             return done(null, false, { message: "User already exists" });
           } else {
-            bcrypt
-              .hash(req.body.password, BCRYPT_SALT_ROUNDS)
-              .then(hashedPassword => {
-                new User({
-                  firstname: req.body.firstname,
-                  lastname: req.body.lastname,
-                  email: req.body.email,
-                  username: req.body.username,
-                  password: hashedPassword
-                })
-                  .save()
-                  .then(newUser => {
-                    console.log("user created in passport");
-                    return done(null, false, { message: "User created after" });
-                  });
+            new User({
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              email: req.body.email,
+              username: req.body.username,
+              password: req.body.password
+            })
+              .save()
+              .then(newUser => {
+                console.log("user created");
+                return done(null, false, { message: "User created" });
               });
           }
         });
@@ -69,14 +65,14 @@ passport.use(
         }).then(user => {
           if (!user) {
             return done(null, false, {
-              message: "Wrong username/password deatils"
+              message: "Wrong username/password details"
             });
           } else {
             bcrypt.compare(password, user.password).then(response => {
-              if (response != true) {
+              if (response !== true) {
                 console.log("login details are incorrect");
                 return done(null, false, {
-                  message: "login deatils are incorrect"
+                  message: "login details are incorrect"
                 });
               }
               console.log("user logged in");

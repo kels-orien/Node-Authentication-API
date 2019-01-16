@@ -1,6 +1,7 @@
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import passport from "passport";
+import "dotenv/config";
 
 module.exports = app => {
   app.post("/signinuser", (req, res, next) => {
@@ -16,23 +17,17 @@ module.exports = app => {
         req.logIn(user, err => {
           const email = req.body.email;
           const username = req.body.username;
-          const user = User.findOne({ email, username });
-          if (user) {
-            console.log("User already exists");
-          } else {
-            const newUser = new User({
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              email: req.body.email,
-              username: req.body.username,
-              password: req.body.password
-            })
-              .save()
-              .then(() => {
-                console.log("user created in db");
-                res.status(200).send({ message: "user created in signup" });
-              });
-          }
+          User.findOne({ username }).then(user => {
+            const token = jwt.sign(
+              { id: user.username },
+              process.env.JWT_SECRET
+            );
+            res.status(200).send({
+              auth: true,
+              token: token,
+              message: "user found & logged in"
+            });
+          });
         });
       }
     })(req, res, next);
