@@ -36,6 +36,12 @@ const UserSchema = new Schema({
   joinDate: {
     type: Date,
     default: Date.now
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
 });
 

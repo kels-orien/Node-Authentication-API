@@ -15,7 +15,6 @@ module.exports = app => {
         res.send(info.message);
       } else {
         req.logIn(user, err => {
-          const email = req.body.email;
           const username = req.body.username;
           User.findOne({ username }).then(user => {
             const token = jwt.sign(
