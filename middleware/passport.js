@@ -22,29 +22,27 @@ passport.use(
       passReqToCallback: true,
       session: false
     },
-    (req, username, password, done) => {
+    async (req, username, password, done) => {
+      let user;
       try {
-        User.findOne({ email: req.body.email, username: username }).then(
-          user => {
-            if (user) {
-              console.log("username or email already taken");
-              return done(null, false, { message: "User already exists" });
-            } else {
-              new User({
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                username: req.body.username,
-                password: password
-              })
-                .save()
-                .then(newUser => {
-                  console.log("user created");
-                  return done(null, newUser);
-                });
-            }
-          }
-        );
+        user = await User.findOne({
+          email: req.body.email,
+          username: username
+        });
+        if (user) {
+          console.log("username or email already taken");
+          return done(null, false, { message: "User already exists" });
+        } else {
+          user = await new User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            username: req.body.username,
+            password: password
+          }).save();
+          console.log("New user created!");
+        }
+        return done(null, user);
       } catch (err) {
         done(err);
       }

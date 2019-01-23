@@ -13,6 +13,9 @@ module.exports = app => {
         console.log(info.message);
         res.send(info.message);
       }
+      if (user) {
+        res.json(user);
+      }
     })(req, res, next);
   });
 };

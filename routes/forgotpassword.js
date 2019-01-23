@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import User from "../models/user";
-import "dotenv/config";
+
 module.exports = app => {
   app.post("/forgotpassword", (req, res, next) => {
     if (req.body.email === "") {
@@ -13,7 +13,7 @@ module.exports = app => {
           resetPasswordToken: token,
           resetPasswordExpires: Date.now() + 360000
         });
-        let account = await nodemailer.createTestAccount();
+        let account = nodemailer.createTestAccount();
 
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
@@ -35,7 +35,7 @@ module.exports = app => {
         };
 
         // send mail with defined transport object
-        let info = await transporter.sendMail(mailOptions);
+        let info = transporter.sendMail(mailOptions);
 
         if (info.err) {
           return response.status(500).send("500 - Internal Server Error");
