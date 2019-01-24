@@ -59,28 +59,27 @@ passport.use(
       passwordField: "password",
       session: false
     },
-    (username, password, done) => {
+    async (username, password, done) => {
+      let user;
       try {
-        User.findOne({
-          username
-        }).then(user => {
-          if (!user) {
-            return done(null, false, {
-              message: "Wrong username/password details"
-            });
-          } else {
-            bcrypt.compare(password, user.password).then(response => {
-              if (response !== true) {
-                console.log("login details are incorrect");
-                return done(null, false, {
-                  message: "login details are incorrect"
-                });
-              }
-              console.log("user logged in");
-              return done(null, user);
-            });
-          }
-        });
+        user = await User.findOne({ username });
+
+        if (!user) {
+          return done(null, false, {
+            message: "Wrong username/password details"
+          });
+        } else {
+          bcrypt.compare(password, user.password).then(response => {
+            if (response !== true) {
+              console.log("login details are incorrect");
+              return done(null, false, {
+                message: "login details are incorrect"
+              });
+            }
+            console.log("user logged in");
+            return done(null, user);
+          });
+        }
       } catch (err) {
         done(err);
       }
