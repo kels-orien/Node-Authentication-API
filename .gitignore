@@ -36,6 +36,17 @@ build/Release
 node_modules/
 jspm_packages/
 
+
+# Client dependency directories
+client/node_modules/
+client/jspm_packages/
+# testing
+client/coverage
+
+# production
+client/build
+
+
 # TypeScript v1 declaration files
 typings/
 

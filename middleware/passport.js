@@ -1,14 +1,11 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 
-const BCRYPT_SALT_ROUNDS = 12;
-
 const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
   JWTstrategy = require("passport-jwt").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 import User from "../models/user";
-import jwt from "jsonwebtoken";
 
 passport.use(
   "register",
@@ -85,4 +82,30 @@ passport.use(
       }
     }
   )
+);
+
+const jwt = {
+  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
+  secretOrKey: process.env.JWT_SECRET
+};
+
+passport.use(
+  "jwt",
+  new JWTstrategy(jwt, async (jwt_token, done) => {
+    try {
+      let user;
+      user = await User.findOne({
+        username: jwt_token.username
+      });
+      if (user) {
+        console.log("user found in db");
+        done(null, user);
+      } else {
+        console.log("user not found in db");
+        done(null, false);
+      }
+    } catch (err) {
+      done(err);
+    }
+  })
 );
