@@ -14,19 +14,19 @@ const styles = theme => ({
   }
 });
 
-const LinkButton = props => {
+const SubmitButton = props => {
   const { classes } = props;
   return (
     <Fragment>
-      <Button className={classes.button}>
+      <Button variant="outlined" color="primary" className={classes.button}>
         <Link to={props.link}>{props.buttonText}</Link>
       </Button>
     </Fragment>
   );
 };
 
-LinkButton.propTypes = {
+SubmitButton.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(LinkButton);
+export default withStyles(styles)(SubmitButton);
