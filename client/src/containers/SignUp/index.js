@@ -18,7 +18,7 @@ class SignUp extends Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
-                <h1>SIGN UP</h1>
+                SIGN UP
               </Typography>
               <TextField
                 id="firstname"
@@ -40,7 +40,7 @@ class SignUp extends Component {
               <br />
               <TextField
                 id="email"
-                label="email"
+                label="Email"
                 value=""
                 fullWidth
                 onChange=""
