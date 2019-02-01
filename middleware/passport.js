@@ -23,12 +23,13 @@ passport.use(
       let user;
       try {
         user = await User.findOne({
-          email: req.body.email,
           username: username
         });
         if (user) {
-          console.log("username or email already taken");
-          return done(null, false, { message: "User already exists" });
+          console.log("username already taken");
+          return done(null, false, {
+            message: "Username already taken"
+          });
         } else {
           user = await new User({
             firstname: req.body.firstname,

@@ -50,6 +50,7 @@ class SignIn extends Component {
     } else {
       Cookies.set("token", data.token);
       console.log("token: ", data.token);
+      this.setState({ ...INITIAL_STATE });
       this.setState({
         signedIn: true,
         errorMessage: false

@@ -14,7 +14,8 @@ module.exports = app => {
         res.send(info.message);
       }
       if (user) {
-        res.json(user);
+        console.log("user created in db");
+        res.status(200).send({ message: "user created" });
       }
     })(req, res, next);
   });
