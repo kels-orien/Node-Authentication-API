@@ -44,10 +44,13 @@ class SignUp extends Component {
     if (response.data === "Username already taken") {
       this.setState({ ...INITIAL_STATE });
       this.setState({
-        errorMessage: true,
-        message: response.data.message
+        errorMessage: true
       });
     } else {
+      this.setState({
+        message: response.data.message,
+        errorMessage: false
+      });
     }
   };
 
@@ -92,100 +95,111 @@ class SignUp extends Component {
       message
     } = this.state;
 
-    return (
-      <div className={classes.root}>
-        <form noValidate autoComplete="off" onSubmit={this.signupUser}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary">
-                SIGN UP
-              </Typography>
-              <TextField
-                name="firstname"
-                label="FirstName"
-                value={firstname}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                name="lastname"
-                label="LastName"
-                value={lastname}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                name="email"
-                label="Email"
-                value={email}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                name="username"
-                label="Username"
-                value={username}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                name="password"
-                label="Password"
-                type="password"
-                fullWidth
-                value={password}
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                name="retypePassword"
-                label=" Retype Password"
-                type="password"
-                fullWidth
-                value={retypePassword}
-                onChange={this.onChange}
-                onBlur={this.confirmPW.bind(this)}
-                margin="normal"
-              />
-              {passwordMatch && (
-                <div>
-                  <p className={red}>
-                    Please check that your passwords match and are at least 8
-                    characters.
-                  </p>
-                </div>
-              )}
-              {errorMessage && (
-                <div>
-                  <p className={red}>Username is unavailable</p>
-                </div>
-              )}
-              <div>
-                <p>Password must be a minium of 8 characters in length.</p>
-              </div>
-              <CardActions className={classes.cardAction}>
-                <SubmitButton
-                  buttonText={`Submit`}
-                  disabled={this.validateForm()}
+    if (message === "") {
+      return (
+        <div className={classes.root}>
+          <form noValidate autoComplete="off" onSubmit={this.signupUser}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary">
+                  SIGN UP
+                </Typography>
+                <TextField
+                  name="firstname"
+                  label="FirstName"
+                  value={firstname}
+                  fullWidth
+                  onChange={this.onChange}
+                  margin="normal"
                 />
+                <br />
+                <TextField
+                  name="lastname"
+                  label="LastName"
+                  value={lastname}
+                  fullWidth
+                  onChange={this.onChange}
+                  margin="normal"
+                />
+                <br />
+                <TextField
+                  name="email"
+                  label="Email"
+                  value={email}
+                  fullWidth
+                  onChange={this.onChange}
+                  margin="normal"
+                />
+                <br />
+                <TextField
+                  name="username"
+                  label="Username"
+                  value={username}
+                  fullWidth
+                  onChange={this.onChange}
+                  margin="normal"
+                />
+                <br />
+                <TextField
+                  name="password"
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  value={password}
+                  onChange={this.onChange}
+                  margin="normal"
+                />
+                <br />
+                <TextField
+                  name="retypePassword"
+                  label=" Retype Password"
+                  type="password"
+                  fullWidth
+                  value={retypePassword}
+                  onChange={this.onChange}
+                  onBlur={this.confirmPW.bind(this)}
+                  margin="normal"
+                />
+                {passwordMatch && (
+                  <div>
+                    <p className={red}>
+                      Please check that your passwords match and are at least 8
+                      characters.
+                    </p>
+                  </div>
+                )}
+                {errorMessage && (
+                  <div>
+                    <p className={red}>Username is unavailable</p>
+                  </div>
+                )}
+                <div>
+                  <p>Password must be a minium of 8 characters in length.</p>
+                </div>
+                <CardActions className={classes.cardAction}>
+                  <SubmitButton
+                    buttonText={`Submit`}
+                    disabled={this.validateForm()}
+                  />
+                </CardActions>
+              </CardContent>
+              <CardActions className={classes.cardAction}>
+                <LinkButton buttonText={`Sign In`} link={`/signin`} />
               </CardActions>
-            </CardContent>
-            <CardActions className={classes.cardAction}>
-              <LinkButton buttonText={`Sign In`} link={`/signin`} />
-            </CardActions>
+            </Card>
+          </form>
+        </div>
+      );
+    } else if (message === "user created") {
+      return (
+        <div>
+          <Card>
+            <Typography>User Registration Successfull!</Typography>
+            <LinkButton buttonText={`Sign In`} link={`/signin`} />
           </Card>
-        </form>
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
 
