@@ -17,7 +17,7 @@ module.exports = app => {
         req.logIn(user, err => {
           User.findOne({ username: req.body.username }).then(user => {
             const token = jwt.sign(
-              { id: user.username },
+              { username: user.username },
               process.env.JWT_SECRET
             );
             res.status(200).send({

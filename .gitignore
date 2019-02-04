@@ -40,6 +40,10 @@ jspm_packages/
 # Client dependency directories
 client/node_modules/
 client/jspm_packages/
+
+#node express template c
+node-express-boilerplate/
+
 # testing
 client/coverage
 
@@ -70,3 +74,5 @@ typings/
 
 # next.js build output
 .next
+
+
