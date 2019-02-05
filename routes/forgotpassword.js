@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import User from "../models/user";
-
+import crypto from "crypto";
+import "dotenv/config";
 module.exports = app => {
   let user;
   app.post("/forgotpassword", async (req, res, next) => {
@@ -10,6 +11,7 @@ module.exports = app => {
 
     user = await User.findOne({ email: req.body.email });
     if (user !== null) {
+      const token = crypto.randomBytes(20).toString("hex");
       user.update({
         resetPasswordToken: token,
         resetPasswordExpires: Date.now() + 360000
@@ -28,10 +30,14 @@ module.exports = app => {
       });
 
       let mailOptions = {
-        from: req.body.from, // sender address
-        to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line
-        text: req.body.text, // plain text body
+        from: `passportAuthDemo@gmail.com`, // sender address
+        to: user.email, // list of receivers
+        subject: "Reset Your Password", // Subject line
+        text:
+          `This email was sent because you requested a password change fro your account.\n\n` +
+          `please change your password immediately by clicking on the following link` +
+          `http://localhost:8001/reset/${token}\n\n` +
+          `Ignore message if password change was not requested by you`, // plain text body
         html: "" // html body
       };
 
