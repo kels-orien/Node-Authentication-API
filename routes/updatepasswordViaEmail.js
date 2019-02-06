@@ -2,7 +2,7 @@ import User from "../models/user";
 
 module.exports = app => {
   let user;
-  app.post("/updatepasswordViaEmail", async (req, res, next) => {
+  app.put("/updatepasswordViaEmail", async (req, res, next) => {
     user = await User.findOne({
       username: req.body.username
     });
@@ -12,6 +12,7 @@ module.exports = app => {
         resetPasswordToken: null,
         reserPasswordExpires: null
       });
+      res.status(200).send({ message: "password updated  successfully" });
     } else {
       console.log("cannot update, user does not exist in db");
       res.status(404).json("cannot update, user does not exist in db");

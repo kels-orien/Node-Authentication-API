@@ -97,7 +97,8 @@ class SignIn extends Component {
             {errorMessage && (
               <div>
                 <p>
-                  username /password combination is incorrect. Please try again.
+                  username and password combination is incorrect. Please try
+                  again.
                 </p>
               </div>
             )}

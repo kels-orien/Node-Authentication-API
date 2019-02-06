@@ -36,7 +36,7 @@ module.exports = app => {
         text:
           `This email was sent because you requested a password change fro your account.\n\n` +
           `please change your password immediately by clicking on the following link` +
-          `http://localhost:8001/reset/${token}\n\n` +
+          `http://localhost:3000/password-reset/${token}\n\n` +
           `Ignore message if password change was not requested by you`, // plain text body
         html: "" // html body
       };

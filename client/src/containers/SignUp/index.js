@@ -11,7 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
-const API_URL = "http://localhost:8001/forgotpassword/";
+const API_URL = "http://localhost:8001/signupUser/";
 
 const INITIAL_STATE = {
   firstname: "",

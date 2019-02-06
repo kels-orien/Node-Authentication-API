@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import { Typography } from "@material-ui/core";
 
+const API_URL = "http://localhost:8001/forgotpassword/";
+
 const INITIAL_STATE = {
   email: "",
   errorMessage: false,
