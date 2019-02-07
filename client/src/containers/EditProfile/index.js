@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import { Typography } from "@material-ui/core";
 import * as Cookies from "es-cookie";
+import { Redirect } from "react-router-dom";
 
 const API_URL = "http://localhost:8001/getUser/";
 
@@ -60,87 +61,87 @@ class EditProfile extends Component {
     this.setState({ [name]: value });
   };
   render() {
-    const { firstname, lastname, username, password, updateSuccess, error, loading}
-   
+    const {
+      firstname,
+      lastname,
+      email,
+      username,
+      password,
+      updateSuccess,
+      error,
+      loading
+    } = this.state;
+
     if (error) {
       return (
-      <div>
-
-        <LinkButton
-         buttonText = {`Sign in`}
-         link ="/signin"/>
-        </div>)
-    }else if (loadingUser !== false) {
+        <div>
+          <LinkButton buttonText={`Sign in`} link="/signin" />
+        </div>
+      );
+    } else if (loading !== false) {
       return (
         <div>
-          <Typography>
-            Loading.....
-          </Typography>
-          </div>
-      )
-    } else if (loading === false && updated === true) {
-      return <Redirect to = {`/${username}`}/>
+          <Typography>Loading.....</Typography>
+        </div>
+      );
+    } else if (loading === false && updateSuccess === true) {
+      return <Redirect to={`/${username}`} />;
     } else if (loading === false) {
       return (
         <div>
+          <TopBar />
+          <NavBar />
           <form>
-          <TextField
-                name="firstname"
-                label="firstname"
-                value={firstname}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
             <TextField
-                name="lastname"
-                label="lastname"
-                value={lastname}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
+              name="firstname"
+              label="firstname"
+              value={firstname}
+              fullWidth
+              onChange={this.onChange}
+              margin="normal"
+            />
             <TextField
-                name="email"
-                label="email"
-                value={email}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
-              <TextField
-                name="username"
-                label="username"
-                value={username}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />
+              name="lastname"
+              label="lastname"
+              value={lastname}
+              fullWidth
+              onChange={this.onChange}
+              margin="normal"
+            />
+            <TextField
+              name="email"
+              label="email"
+              value={email}
+              fullWidth
+              onChange={this.onChange}
+              margin="normal"
+            />
+            <TextField
+              name="username"
+              label="username"
+              value={username}
+              fullWidth
+              onChange={this.onChange}
+              margin="normal"
+            />
 
-              <TextField
-                name="password"
-                label="password"
-                value={password}
-                fullWidth
-                onChange={this.onChange}
-                margin="normal"
-              />  
+            <TextField
+              name="password"
+              label="password"
+              value={password}
+              fullWidth
+              onChange={this.onChange}
+              margin="normal"
+            />
 
-              <SubmitButton
-              buttonText = {`Save Changes`}
-              />
+            <SubmitButton buttonText={`Save Changes`} />
           </form>
 
-          <LinkButton
-          buttonText = {`Home`}
-          link = {`/`}/>
-           <LinkButton
-          buttonText = {`Undo Changes`}
-          link = {`/`}/>
+          <LinkButton buttonText={`Home`} link={`/`} />
+          <LinkButton buttonText={`Undo Changes`} link={`/`} />
         </div>
-      )
+      );
     }
-    
   }
 }
 

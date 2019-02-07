@@ -3,7 +3,11 @@ import axios from "axios";
 import { SubmitButton, LinkButton } from "../../components/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-import { Typography } from "@material-ui/core";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import { Typography, withStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
+import formstyle from "../../components/Form";
 
 const API_URL = "http://localhost:8001/forgotpassword/";
 
@@ -21,12 +25,23 @@ class ForgotPassword extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+  validateEmail() {
+    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const isValid = regex.test(this.state.email) ? true : false;
+    if (isValid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   sendEmail = async event => {
     event.preventDefault();
 
     let response = await axios.post(API_URL, {
       email: this.state.email
     });
+
     if (response.data === "email not in db") {
       this.setState({
         serverMessage: "",
@@ -40,21 +55,28 @@ class ForgotPassword extends Component {
     }
   };
   render() {
+    const { classes } = this.props;
     const { email, serverMessage, errorMessage } = this.state;
-    const disabled = this.state.email === "";
     return (
-      <div>
+      <div className={classes.root}>
         <form autoComplete="off" onSubmit={this.sendEmail}>
-          <Card>
-            <TextField
-              name="email"
-              label="Email"
-              value={email}
-              fullWidth
-              onChange={this.onChange}
-              margin="normal"
-            />
-            <SubmitButton buttonText={`Reset Password`} disabled={disabled} />
+          <Card className={classes.card}>
+            <CardContent>
+              <TextField
+                name="email"
+                label="Email"
+                value={email}
+                fullWidth
+                onChange={this.onChange}
+                margin="normal"
+              />
+              <CardActions className={classes.cardAction}>
+                <SubmitButton
+                  buttonText={`Reset Password`}
+                  disabled={this.validateEmail()}
+                />
+              </CardActions>
+            </CardContent>
           </Card>
         </form>
 
@@ -79,4 +101,8 @@ class ForgotPassword extends Component {
   }
 }
 
-export default ForgotPassword;
+ForgotPassword.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(formstyle)(ForgotPassword);

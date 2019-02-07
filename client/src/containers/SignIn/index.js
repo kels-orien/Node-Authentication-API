@@ -105,7 +105,7 @@ class SignIn extends Component {
             <CardActions className={classes.cardAction}>
               <LinkButton
                 buttonText={`Forgot Passord`}
-                link={`/forgotpassword`}
+                link={`/forgotPassword`}
               />
             </CardActions>
             <CardActions className={classes.cardAction}>

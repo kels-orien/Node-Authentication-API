@@ -22,7 +22,7 @@ class ResetPassword extends Component {
 
   async componentDidMount() {
     let response = await axios.get(API_URL_RESET, {
-      params: { resetPasswordTaken: this.props.match.params.token }
+      params: { resetPasswordToken: this.props.match.params.token }
     });
 
     if (response.data.message === "password reset link is valid") {
@@ -51,7 +51,7 @@ class ResetPassword extends Component {
       password: this.state.password
     });
 
-    if (response.data.message === "password updated  successfully") {
+    if (response.data.message === "password updated successfully") {
       this.setState({
         updateSuccess: true,
         error: false
@@ -88,7 +88,7 @@ class ResetPassword extends Component {
             <SubmitButton buttonText={"Update Password"} />
           </form>
 
-          {updateSucess && (
+          {updateSuccess && (
             <div>
               <Typography>
                 Your password has been successfully changed, you can now sign in
