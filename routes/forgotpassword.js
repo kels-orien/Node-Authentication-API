@@ -55,9 +55,7 @@ module.exports = app => {
         console.log("Message sent: %s", info.messageId);
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        res.status(200).send({
-          message: "recovery message sent"
-        });
+        res.status(200).json("recovery email sent");
       } else {
         console.log("email not found");
         res.json("email not in db");

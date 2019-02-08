@@ -3,10 +3,14 @@ import axios from "axios";
 import { SubmitButton, LinkButton } from "../../components/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-import { Typography } from "@material-ui/core";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import { Typography, withStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
+import formstyle from "../../components/Form";
 
 const API_URL_RESET = "http://localhost:8001/password-reset/";
-const API_URL_UPDATE = "http://localhost:8001/updatePasswordViaEmail/";
+const API_URL_UPDATE = "http://localhost:8001/updatepasswordViaEmail/";
 
 const INITIAL_STATE = {
   username: "",
@@ -32,6 +36,7 @@ class ResetPassword extends Component {
         error: false,
         loading: false
       });
+      console.log("username: ", this.state.username);
     } else {
       this.setState({
         updateSuccess: false,
@@ -46,12 +51,14 @@ class ResetPassword extends Component {
   };
   updatePassword = async event => {
     event.preventDefault();
-    let response = axios.put(API_URL_UPDATE, {
+    let response = await axios.put(API_URL_UPDATE, {
       username: this.state.username,
       password: this.state.password
     });
+    let data = response.data;
+    console.log("response: ", response);
 
-    if (response.data.message === "password updated successfully") {
+    if (data.message === "password updated successfully") {
       this.setState({
         updateSuccess: true,
         error: false
@@ -59,7 +66,9 @@ class ResetPassword extends Component {
     }
   };
   render() {
+    const { classes } = this.props;
     const { password, error, loading, updateSuccess } = this.state;
+    const disabled = this.state.password === "";
     if (error) {
       return (
         <div>
@@ -74,18 +83,27 @@ class ResetPassword extends Component {
       );
     } else {
       return (
-        <div>
+        <div className={classes.root}>
           <form autoComplete="off" onSubmit={this.updatePassword}>
-            <TextField
-              name="password"
-              label="Password"
-              type="password"
-              value={password}
-              fullWidth
-              onChange={this.onChange}
-              margin="normal"
-            />
-            <SubmitButton buttonText={"Update Password"} />
+            <Card className={classes.card}>
+              <CardContent>
+                <TextField
+                  name="password"
+                  label="Password"
+                  type="password"
+                  value={password}
+                  fullWidth
+                  onChange={this.onChange}
+                  margin="normal"
+                />
+                <CardActions className={classes.cardAction}>
+                  <SubmitButton
+                    buttonText={"Update Password"}
+                    disabled={disabled}
+                  />
+                </CardActions>
+              </CardContent>
+            </Card>
           </form>
 
           {updateSuccess && (
@@ -93,7 +111,7 @@ class ResetPassword extends Component {
               <Typography>
                 Your password has been successfully changed, you can now sign in
               </Typography>
-              <LinkButton buttonText={"Sign In"} link={`signin`} />
+              <LinkButton buttonText={"Sign In"} link={`/signin`} />
             </div>
           )}
 
@@ -103,5 +121,8 @@ class ResetPassword extends Component {
     }
   }
 }
+ResetPassword.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-export default ResetPassword;
+export default withStyles(formstyle)(ResetPassword);

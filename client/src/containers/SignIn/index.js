@@ -34,22 +34,16 @@ class SignIn extends Component {
       username: this.state.username,
       password: this.state.password
     });
-    let data = await response.data;
-
-    if (data) {
-      console.log("error: ", data);
-    }
 
     if (
-      data === "Wrong username/password details" ||
-      data === "login details are incorrect"
+      response.data === "Wrong username/password details" ||
+      response.data === "login details are incorrect"
     ) {
       this.setState({
         errorMessage: true
       });
     } else {
-      Cookies.set("token", data.token);
-      console.log("token: ", data.token);
+      Cookies.set("token", response.data.token);
       this.setState({ ...INITIAL_STATE });
       this.setState({
         signedIn: true,
