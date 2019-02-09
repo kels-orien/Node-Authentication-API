@@ -21,7 +21,7 @@ const INITIAL_STATE = {
   password: "",
   retypePassword: "",
   errorMessage: false,
-  passwordMatch: null,
+  passwordMatch: false,
   message: ""
 };
 

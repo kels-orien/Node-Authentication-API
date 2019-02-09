@@ -95,7 +95,9 @@ class ForgotPassword extends Component {
 
         {serverMessage === "recovery email sent" && (
           <div>
-            <Typography>Password Reset Email Sent!</Typography>
+            <Typography>
+              Password reset email sent, check your Inbox!
+            </Typography>
 
             <LinkButton buttonText={`Go Home`} link={"/"} />
           </div>

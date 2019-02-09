@@ -7,19 +7,23 @@ module.exports = app => {
   app.put("/updatePasswordViaEmail", async (req, res, next) => {
     let user;
 
-    bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS).then(hashPassword => {
-      user = await User.findOneAndUpdate(
-        { username: req.body.username },
-        {
-          $set: {
-            password: hashPassword,
-            resetPasswordToken: null,
-            resetPasswordExpires: null
-          }
-        },
-        { new: true }
-      );
+    const hashedPassword = await new Promise((resolve, reject) => {
+      bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS, function(err, hash) {
+        if (err) reject(err);
+        resolve(hash);
+      });
     });
+    user = await User.findOneAndUpdate(
+      { username: req.body.username },
+      {
+        $set: {
+          password: hashedPassword,
+          resetPasswordToken: null,
+          resetPasswordExpires: null
+        }
+      },
+      { new: true }
+    );
 
     if (user) {
       console.log("password updated successfully");

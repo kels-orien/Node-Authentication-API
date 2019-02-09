@@ -109,7 +109,7 @@ class ResetPassword extends Component {
           {updateSuccess && (
             <div>
               <Typography>
-                Your password has been successfully changed, you can now sign in
+                Your password has been successfully reset, Please sign in
               </Typography>
               <LinkButton buttonText={"Sign In"} link={`/signin`} />
             </div>
