@@ -51,7 +51,7 @@ const NavBar = props => {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button component={Link} to="/editProfile/:username">
+        <ListItem button component={Link} to="/editProfile">
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

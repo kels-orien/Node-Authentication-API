@@ -43,15 +43,17 @@ class SignIn extends Component {
         errorMessage: true
       });
     } else {
-      Cookies.set("token", response.data.token);
-      this.setState({ ...INITIAL_STATE });
+      Cookies.set("token", response.data.token, { expires: 1 });
+      this.clearState();
       this.setState({
         signedIn: true,
         errorMessage: false
       });
     }
   };
-
+  clearState() {
+    this.setState({ ...INITIAL_STATE });
+  }
   render() {
     const { classes } = this.props;
     const { username, password, errorMessage, signedIn } = this.state;

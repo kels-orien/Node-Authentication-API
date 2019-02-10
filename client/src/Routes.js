@@ -21,7 +21,7 @@ class Routes extends Component {
             component={ResetPassword}
           />
           <Route exact path="/forgotPassword" component={ForgotPassword} />
-          <Route exact path="/editProfile/:username" component={EditProfile} />
+          <Route exact path="/editProfile" component={EditProfile} />
         </Switch>
       </div>
     );

@@ -61,6 +61,16 @@ class SignUp extends Component {
       passwordMatch: isMatch
     });
   }
+  validateEmail(email) {
+    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const isValid = regex.test(email) ? true : false;
+
+    if (isValid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   validateForm() {
     const {
       firstname,
@@ -78,7 +88,8 @@ class SignUp extends Component {
       !username ||
       !password ||
       password !== retypePassword ||
-      password.length <= 7;
+      password.length <= 7 ||
+      this.validateEmail(email);
     return isInvalid;
   }
   render() {
@@ -192,8 +203,8 @@ class SignUp extends Component {
       );
     } else if (message === "user created") {
       return (
-        <div>
-          <Card>
+        <div className={classes.root}>
+          <Card className={classes.card}>
             <Typography>User Registration Successfull!</Typography>
             <LinkButton buttonText={`Sign In`} link={`/signin`} />
           </Card>

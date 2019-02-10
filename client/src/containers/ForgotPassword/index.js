@@ -63,8 +63,8 @@ class ForgotPassword extends Component {
     const { email, serverMessage, errorMessage } = this.state;
     return (
       <div className={classes.root}>
-        <form autoComplete="off" onSubmit={this.sendEmail}>
-          <Card className={classes.card}>
+        <Card className={classes.card}>
+          <form autoComplete="off" onSubmit={this.sendEmail}>
             <CardContent>
               <TextField
                 name="email"
@@ -81,27 +81,27 @@ class ForgotPassword extends Component {
                 />
               </CardActions>
             </CardContent>
-          </Card>
-        </form>
+          </form>
 
-        {errorMessage && (
-          <div>
-            <Typography>
-              The email address is not available. Please retry or create an
-              account
-            </Typography>
-          </div>
-        )}
+          {errorMessage && (
+            <div>
+              <Typography>
+                The email address is not available. Please retry or create an
+                account
+              </Typography>
+            </div>
+          )}
 
-        {serverMessage === "recovery email sent" && (
-          <div>
-            <Typography>
-              Password reset email sent, check your Inbox!
-            </Typography>
+          {serverMessage === "recovery email sent" && (
+            <div>
+              <Typography>
+                Password reset email sent, check your Inbox!
+              </Typography>
 
-            <LinkButton buttonText={`Go Home`} link={"/"} />
-          </div>
-        )}
+              <LinkButton buttonText={`Go Home`} link={"/"} />
+            </div>
+          )}
+        </Card>
       </div>
     );
   }

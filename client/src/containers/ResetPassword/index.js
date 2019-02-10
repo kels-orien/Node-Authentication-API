@@ -84,8 +84,8 @@ class ResetPassword extends Component {
     } else {
       return (
         <div className={classes.root}>
-          <form autoComplete="off" onSubmit={this.updatePassword}>
-            <Card className={classes.card}>
+          <Card className={classes.card}>
+            <form autoComplete="off" onSubmit={this.updatePassword}>
               <CardContent>
                 <TextField
                   name="password"
@@ -103,9 +103,10 @@ class ResetPassword extends Component {
                   />
                 </CardActions>
               </CardContent>
-            </Card>
-          </form>
+            </form>
 
+            <LinkButton buttonText={"Home"} link={`/`} />
+          </Card>
           {updateSuccess && (
             <div>
               <Typography>
@@ -114,8 +115,6 @@ class ResetPassword extends Component {
               <LinkButton buttonText={"Sign In"} link={`/signin`} />
             </div>
           )}
-
-          <LinkButton buttonText={"Home"} link={`/`} />
         </div>
       );
     }

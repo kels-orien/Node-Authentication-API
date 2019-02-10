@@ -36,6 +36,7 @@ app.use(passport.initialize());
 require("./middleware/passport");
 require("./routes/signupUser")(app);
 require("./routes/signinUser")(app);
+require("./routes/getUser")(app);
 require("./routes/password-reset")(app);
 require("./routes/forgotPassword")(app);
 require("./routes/updatePasswordViaEmail")(app);
