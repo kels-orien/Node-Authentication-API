@@ -28,6 +28,7 @@ class SignIn extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
   signinUser = async event => {
     event.preventDefault();
     let response = await axios.post(API_URL, {
