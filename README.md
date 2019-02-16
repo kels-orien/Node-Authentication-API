@@ -8,10 +8,10 @@ Json web tokens and
 Github authentication provider. 
 
 
-#Passport Authentication
+# Passport Authentication
  Passport is an authentication middleware that parses requests from the user/client before it accesses a database.
 
-#Passport Libraries
+# Passport Libraries
  Passport-local: middleware that parses username and password before a user is signed in.
 
  Passport-JWT: middleware that parses a jwt token before authenticated user can access database.
