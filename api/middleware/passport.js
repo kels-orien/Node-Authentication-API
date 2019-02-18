@@ -11,9 +11,6 @@ passport.use(
   "register",
   new localStrategy(
     {
-      firstnameField: "firstname",
-      lastnameField: "lastname",
-      email: "email",
       usernameField: "username",
       passwordField: "password",
       passReqToCallback: true,
