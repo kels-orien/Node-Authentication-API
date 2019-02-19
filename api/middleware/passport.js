@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
-  JWTstrategy = require("passport-jwt").Strategy,
+  jwtStrategy = require("passport-jwt").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 import User from "../models/user";
 
@@ -29,8 +29,8 @@ passport.use(
           });
         } else {
           user = await new User({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
             password: password
@@ -89,7 +89,7 @@ const jwt = {
 
 passport.use(
   "jwt",
-  new JWTstrategy(jwt, async (jwt_token, done) => {
+  new jwtStrategy(jwt, async (jwt_token, done) => {
     try {
       let user;
       user = await User.findOne({
