@@ -1,9 +1,7 @@
-import User from "../models/user";
-import jwt from "jsonwebtoken";
 import passport from "passport";
 
 module.exports = app => {
-  app.post("/signupuser", (req, res, next) => {
+  app.post("/signUpUser", (req, res, next) => {
     passport.authenticate("register", (err, user, info) => {
       if (err) {
         console.log(err);
