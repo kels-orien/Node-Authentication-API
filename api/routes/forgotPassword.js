@@ -4,7 +4,7 @@ import crypto from "crypto";
 import "dotenv/config";
 module.exports = app => {
   let user;
-  app.post("/forgotpassword", (req, res, next) => {
+  app.post("/forgotPassword", (req, res, next) => {
     async function main() {
       if (req.body.email === "") {
         res.json("email is required");

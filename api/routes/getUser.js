@@ -16,8 +16,8 @@ module.exports = app => {
 
         res.status(200).send({
           auth: true,
-          firstname: user.firstname,
-          lastname: user.lastname,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           username: user.username,
           password: user.password,

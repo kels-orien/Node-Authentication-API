@@ -1,7 +1,7 @@
 import passport from "passport";
 
 module.exports = app => {
-  app.post("/signUpUser", (req, res, next) => {
+  app.post("/signupUser", (req, res, next) => {
     passport.authenticate("register", (err, user, info) => {
       if (err) {
         console.log(err);
@@ -10,10 +10,21 @@ module.exports = app => {
       if (info != undefined) {
         console.log(info.message);
         res.send(info.message);
-      }
-      if (user) {
-        console.log("user created in db");
-        res.status(200).send({ message: "user created" });
+      } else {
+        req.logIn(user, err => {
+          User.findOne({
+            username: user.username
+          }).then(user => {
+            user.updateOne({
+              firstName: req.body.firstName,
+              lastName: req.body.lastName
+            });
+            if (user) {
+              console.log("New user created!");
+              res.status(200).send({ message: "user created" });
+            }
+          });
+        });
       }
     })(req, res, next);
   });

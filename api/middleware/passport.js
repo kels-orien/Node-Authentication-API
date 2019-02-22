@@ -29,11 +29,9 @@ passport.use(
           });
         } else {
           user = await new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
             username: req.body.username,
-            password: password
+            password: password,
+            email: req.body.email
           }).save();
           console.log("New user created!");
         }

@@ -35,8 +35,8 @@ class SignUp extends Component {
     event.preventDefault();
 
     let response = await axios.post(API_URL, {
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
       email: this.state.email,
       username: this.state.username,
       password: this.state.password
@@ -185,7 +185,7 @@ class SignUp extends Component {
                   </div>
                 )}
                 <div>
-                  <p>Password must be a minium of 8 characters in length.</p>
+                  <p>Password must be a minimum of 8 characters in length.</p>
                 </div>
                 <CardActions className={classes.cardAction}>
                   <SubmitButton
@@ -205,7 +205,7 @@ class SignUp extends Component {
       return (
         <div className={classes.root}>
           <Card className={classes.card}>
-            <Typography>User Registration Successfull!</Typography>
+            <Typography>User Registration Successful!</Typography>
             <LinkButton buttonText={`Sign In`} link={`/signin`} />
           </Card>
         </div>

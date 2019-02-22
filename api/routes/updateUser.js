@@ -20,11 +20,10 @@ module.exports = app => {
           } else {
             user
               .update({
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
                 email: req.body.email,
-                bio: req.body.bio,
-                profileImage: req.body.profileImage
+                username: req.body.username
               })
               .then(() => {
                 console.log("user updated");
