@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import formstyle from "../../components/Form";
+import formStyle from "../../components/Form";
 import { SubmitButton, LinkButton } from "../../components/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -101,7 +101,7 @@ class SignIn extends Component {
             )}
             <CardActions className={classes.cardAction}>
               <LinkButton
-                buttonText={`Forgot Passord`}
+                buttonText={`Forgot Password`}
                 link={`/forgotPassword`}
               />
             </CardActions>
@@ -119,4 +119,4 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(formstyle)(SignIn);
+export default withStyles(formStyle)(SignIn);

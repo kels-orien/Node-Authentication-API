@@ -7,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Typography, withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
-import formstyle from "../../components/Form";
+import formStyle from "../../components/Form";
 
 const API_URL = "http://localhost:8001/forgotpassword/";
 
@@ -111,4 +111,4 @@ ForgotPassword.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(formstyle)(ForgotPassword);
+export default withStyles(formStyle)(ForgotPassword);

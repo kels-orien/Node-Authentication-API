@@ -1,5 +1,5 @@
 # Node-Authentication-API
-This project (Node Authentication API) is a MERN Application (MongoDB, Express, React and Nodejs). Users can sign up, signin via username and password or using their Github account, edit and update and view profile.
+This project (Node Authentication API) is a MERN Application (MongoDB, Express, React and Nodejs). Users can sign up, signIn via username and password or using their Github account, edit and update and view profile.
 
 
 Node Authentication API implements different authentication strategies using Passport authentication. There are over 500 authentication strategies; this API specifically uses three of them:

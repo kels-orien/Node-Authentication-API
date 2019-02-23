@@ -1,4 +1,4 @@
-const formstyle = theme => ({
+const formStyle = theme => ({
   root: {
     display: "flex",
     justifyContent: "center",
@@ -16,4 +16,4 @@ const formstyle = theme => ({
   }
 });
 
-export default formstyle;
+export default formStyle;

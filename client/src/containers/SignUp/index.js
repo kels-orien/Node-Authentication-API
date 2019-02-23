@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import formstyle from "../../components/Form";
+import formStyle from "../../components/Form";
 import { SubmitButton, LinkButton } from "../../components/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -218,4 +218,4 @@ SignUp.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(formstyle)(SignUp);
+export default withStyles(formStyle)(SignUp);

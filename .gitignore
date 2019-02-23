@@ -50,6 +50,9 @@ client/coverage
 # production
 client/build
 
+#Vscode config
+vscode/
+
 
 # TypeScript v1 declaration files
 typings/

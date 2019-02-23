@@ -3,7 +3,7 @@ import NavBar from "../../components/NavBar";
 import TopBar from "../../components/TopBar";
 import axios from "axios";
 import { SubmitButton, LinkButton } from "../../components/Button";
-import formstyle from "../../components/Form";
+import formStyle from "../../components/Form";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -110,7 +110,7 @@ class EditProfile extends Component {
       return (
         <div>
           <Typography>
-            Difficulty in accessing your data.Please signin again!
+            Difficulty in accessing your data.Please sign in again!
           </Typography>
           <LinkButton buttonText={`Sign in`} link="/signin" />
         </div>
@@ -191,4 +191,4 @@ EditProfile.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(formstyle)(EditProfile);
+export default withStyles(formStyle)(EditProfile);
