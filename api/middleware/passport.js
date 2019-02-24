@@ -33,7 +33,7 @@ passport.use(
             password: password,
             email: req.body.email
           }).save();
-          console.log("New user created!");
+          console.log("New user created in Passport!");
         }
         return done(null, user);
       } catch (err) {
@@ -95,10 +95,10 @@ passport.use(
       });
       if (user) {
         console.log("user found in db");
-        done(null, user);
+        return done(null, user);
       } else {
         console.log("user not found in db");
-        done(null, false);
+        return done(null, false);
       }
     } catch (err) {
       done(err);

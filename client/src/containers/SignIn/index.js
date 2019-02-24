@@ -67,7 +67,7 @@ class SignIn extends Component {
         <Card className={classes.card}>
           <CardContent>
             <form autoComplete="off" onSubmit={this.signinUser}>
-              <Typography className={classes.title} color="textSecondary">
+              <Typography className={classes.title} color="primary">
                 SIGN IN
               </Typography>
               <TextField
@@ -93,10 +93,10 @@ class SignIn extends Component {
             </form>
             {errorMessage && (
               <div>
-                <p>
+                <Typography color="secondary">
                   username and password combination is incorrect. Please try
                   again.
-                </p>
+                </Typography>
               </div>
             )}
             <CardActions className={classes.cardAction}>

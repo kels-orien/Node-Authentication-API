@@ -14,14 +14,13 @@ import * as Cookies from "es-cookie";
 import { Redirect } from "react-router-dom";
 
 const API_URL = "http://localhost:8001/getUser/";
-const API_URL_UPDATE = "http://localhost:8001/getUser/";
+const API_URL_UPDATE = "http://localhost:8001/updateUser/";
 
 const INITIAL_STATE = {
   firstname: "",
   lastname: "",
   email: "",
   username: "",
-  password: "",
   error: false,
   loading: false,
   updateSuccess: false
@@ -49,11 +48,10 @@ class EditProfile extends Component {
     if (response.data.message === "user found") {
       this.setState({
         loading: false,
-        firstname: response.data.firstname,
-        lastname: response.data.lastname,
+        firstname: response.data.firstName,
+        lastname: response.data.lastName,
         email: response.data.email,
         username: response.data.username,
-        password: response.data.password,
         error: false
       });
     }
@@ -65,32 +63,36 @@ class EditProfile extends Component {
   updateUser = async event => {
     event.preventDefault();
 
-    let token = Cookies.get("token");
-    if (token === null) {
-      this.setState({
-        loading: false,
-        error: true
-      });
-    }
-
-    let response = await axios.put(
-      API_URL_UPDATE,
-      {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        username: this.state.username
-      },
-      {
-        headers: { Authorization: `JWT ${token}` }
+    try {
+      let token = Cookies.get("token");
+      if (token === null) {
+        this.setState({
+          loading: false,
+          error: true
+        });
       }
-    );
+      console.log("url: ", API_URL_UPDATE);
+      let response = await axios.put(
+        API_URL_UPDATE,
+        {
+          firstName: this.state.firstname,
+          lastName: this.state.lastname,
+          email: this.state.email,
+          username: this.state.username
+        },
+        {
+          headers: { Authorization: `JWT ${token}` }
+        }
+      );
 
-    if (response.date.message === "user updated") {
-      this.setState({
-        updateSuccess: true,
-        error: false
-      });
+      if (response.date.message === "user updated") {
+        this.setState({
+          updateSuccess: true,
+          error: false
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
   render() {
@@ -100,7 +102,6 @@ class EditProfile extends Component {
       lastname,
       email,
       username,
-      password,
       updateSuccess,
       error,
       loading
@@ -122,7 +123,7 @@ class EditProfile extends Component {
         </div>
       );
     } else if (loading === false && updateSuccess === true) {
-      return <Redirect to={`/${username}`} />;
+      return <Redirect to={`/`} />;
     } else if (loading === false) {
       return (
         <div>
@@ -164,20 +165,9 @@ class EditProfile extends Component {
                     onChange={this.onChange}
                     margin="normal"
                   />
-
-                  <TextField
-                    name="password"
-                    label="Password"
-                    value={password}
-                    fullWidth
-                    onChange={this.onChange}
-                    margin="normal"
-                  />
-
                   <SubmitButton buttonText={`Save Changes`} />
                 </form>
                 <LinkButton buttonText={`Home`} link={`/`} />
-                <LinkButton buttonText={`Undo Changes`} link={`/`} />
               </CardContent>
             </Card>
           </div>

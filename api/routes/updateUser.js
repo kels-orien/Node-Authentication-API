@@ -2,7 +2,7 @@ import passport from "passport";
 import User from "../models/user";
 
 module.exports = app => {
-  app.put("updateUser", (res, req, next) => {
+  app.put("/updateUser", (res, req, next) => {
     passport.authenticate("jwt", (err, info, user) => {
       if (err) {
         console.log(err);

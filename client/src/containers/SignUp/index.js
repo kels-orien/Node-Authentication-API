@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import red from "@material-ui/core/colors/red";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -22,6 +21,7 @@ const INITIAL_STATE = {
   retypePassword: "",
   errorMessage: false,
   passwordMatch: false,
+  confirmEmail: false,
   message: ""
 };
 
@@ -53,7 +53,14 @@ class SignUp extends Component {
       });
     }
   };
+  checkEmail() {
+    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const isValid = regex.test(this.state.email) ? true : false;
 
+    this.setState({
+      confirmEmail: !isValid
+    });
+  }
   confirmPW() {
     const { password, retypePassword } = this.state;
     const isMatch = password !== retypePassword && password.length <= 7;
@@ -65,11 +72,7 @@ class SignUp extends Component {
     const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     const isValid = regex.test(email) ? true : false;
 
-    if (isValid) {
-      return false;
-    } else {
-      return true;
-    }
+    return !isValid
   }
   validateForm() {
     const {
@@ -102,6 +105,7 @@ class SignUp extends Component {
       password,
       retypePassword,
       passwordMatch,
+      confirmEmail,
       errorMessage,
       message
     } = this.state;
@@ -112,7 +116,7 @@ class SignUp extends Component {
           <form noValidate autoComplete="off" onSubmit={this.signupUser}>
             <Card className={classes.card}>
               <CardContent>
-                <Typography className={classes.title} color="textSecondary">
+                <Typography className={classes.title} color="primary">
                   SIGN UP
                 </Typography>
                 <TextField
@@ -139,8 +143,16 @@ class SignUp extends Component {
                   value={email}
                   fullWidth
                   onChange={this.onChange}
+                  onBlur={this.checkEmail.bind(this)}
                   margin="normal"
                 />
+                {confirmEmail && (
+                  <div>
+                    <Typography color="error">
+                      Please enter a valid email address
+                    </Typography>
+                  </div>
+                )}
                 <br />
                 <TextField
                   name="username"
@@ -173,19 +185,23 @@ class SignUp extends Component {
                 />
                 {passwordMatch && (
                   <div>
-                    <p className={red}>
+                    <Typography color="error">
                       Please check that your passwords match and are at least 8
                       characters.
-                    </p>
+                    </Typography>
                   </div>
                 )}
                 {errorMessage && (
                   <div>
-                    <p className={red}>Username is unavailable</p>
+                    <Typography color="error">
+                      Username is unavailable
+                    </Typography>
                   </div>
                 )}
                 <div>
-                  <p>Password must be a minimum of 8 characters in length.</p>
+                  <Typography color="primary">
+                    Password must be a minimum of 8 characters in length.
+                  </Typography>
                 </div>
                 <CardActions className={classes.cardAction}>
                   <SubmitButton

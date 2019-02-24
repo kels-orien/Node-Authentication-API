@@ -8,10 +8,7 @@ import mongoose from "mongoose";
 import logger from "morgan";
 
 mongoose
-  .connect(
-    process.env.DB_CONNECTION_STRING,
-    { useNewUrlParser: true }
-  )
+  .connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true })
   .then(() => {
     console.log("Connection to DB successful");
   })
@@ -37,6 +34,7 @@ require("./middleware/passport");
 require("./routes/signupUser")(app);
 require("./routes/signinUser")(app);
 require("./routes/getUser")(app);
+require("./routes/updateUser")(app);
 require("./routes/password-reset")(app);
 require("./routes/forgotPassword")(app);
 require("./routes/updatePasswordViaEmail")(app);
