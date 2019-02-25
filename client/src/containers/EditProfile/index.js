@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import * as Cookies from "es-cookie";
-import { Redirect } from "react-router-dom";
 
 const API_URL = "http://localhost:8001/getUser/";
 const API_URL_UPDATE = "http://localhost:8001/updateUser/";
@@ -71,7 +70,7 @@ class EditProfile extends Component {
           error: true
         });
       }
-      console.log("url: ", API_URL_UPDATE);
+      console.log("token : ", token);
       let response = await axios.put(
         API_URL_UPDATE,
         {
@@ -85,7 +84,8 @@ class EditProfile extends Component {
         }
       );
 
-      if (response.date.message === "user updated") {
+      if (response.data.message === "user updated") {
+        console.log("user updated successfully!");
         this.setState({
           updateSuccess: true,
           error: false
@@ -123,7 +123,12 @@ class EditProfile extends Component {
         </div>
       );
     } else if (loading === false && updateSuccess === true) {
-      return <Redirect to={`/`} />;
+      return (
+        <Card className={classes.card}>
+          <Typography>User Registration Successful!</Typography>
+          <LinkButton buttonText={`Home`} link={`/`} />
+        </Card>
+      );
     } else if (loading === false) {
       return (
         <div>

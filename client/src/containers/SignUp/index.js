@@ -31,6 +31,9 @@ class SignUp extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+  clearState() {
+    this.setState({ ...INITIAL_STATE });
+  }
   signupUser = async event => {
     event.preventDefault();
 
@@ -42,7 +45,7 @@ class SignUp extends Component {
       password: this.state.password
     });
     if (response.data === "Username already taken") {
-      this.setState({ ...INITIAL_STATE });
+      this.clearState();
       this.setState({
         errorMessage: true
       });
@@ -72,7 +75,7 @@ class SignUp extends Component {
     const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     const isValid = regex.test(email) ? true : false;
 
-    return !isValid
+    return !isValid;
   }
   validateForm() {
     const {

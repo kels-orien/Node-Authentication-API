@@ -1,7 +1,6 @@
 import passport from "passport";
 
 module.exports = app => {
-  let user;
   app.get("/getUser", async (req, res, next) => {
     passport.authenticate("jwt", { session: false }, (err, user, info) => {
       if (err) {

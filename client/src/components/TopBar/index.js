@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,7 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
+import * as Cookies from "es-cookie";
+import { Redirect } from "react-router-dom";
+
 const styles = {
   root: {
     flexGrow: 1
@@ -21,30 +23,53 @@ const styles = {
   }
 };
 
-const TopBar = props => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Title
-          </Typography>
-          <Button color="inherit" component={Link} to="/signin">
-            Sign out
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
+class TopBar extends Component {
+  state = {
+    signOut: null
+  };
+  logOut() {
+    let token = Cookies.get("token");
+    if (token !== null) {
+      Cookies.remove("token");
+      console.log("token removed");
+      this.setState({ signOut: true });
+    }
+  }
+  render() {
+    const { classes } = this.props;
+    const { signOut } = this.state;
+    if (signOut) {
+      return <Redirect to={`/signin`} />;
+    }
+    return (
+      <div>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="title"
+                color="inherit"
+                className={classes.flex}
+              >
+                Title
+              </Typography>
+              <Button color="inherit" onClick={this.logOut}>
+                Sign out
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </div>
+    );
+  }
+}
 TopBar.propTypes = {
   classes: PropTypes.object.isRequired
 };

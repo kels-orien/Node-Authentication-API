@@ -3,14 +3,13 @@ import User from "../models/user";
 import crypto from "crypto";
 import "dotenv/config";
 module.exports = app => {
-  let user;
   app.post("/forgotPassword", (req, res, next) => {
     async function main() {
       if (req.body.email === "") {
         res.json("email is required");
       }
 
-      user = await User.findOne({ email: req.body.email });
+      let user = await User.findOne({ email: req.body.email });
       console.log("user: ", user);
       if (user !== null) {
         const token = crypto.randomBytes(20).toString("hex");
