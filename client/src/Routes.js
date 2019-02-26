@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./containers/Home";
 import SignUp from "./containers/SignUp";
 import SignIn from "./containers/SignIn";
+import SignOut from "./containers/SignOut";
 import EditProfile from "./containers/EditProfile";
 import ForgotPassword from "./containers/ForgotPassword";
 import ResetPassword from "./containers/ResetPassword";
@@ -22,6 +23,7 @@ class Routes extends Component {
           />
           <Route exact path="/forgotPassword" component={ForgotPassword} />
           <Route exact path="/editProfile" component={EditProfile} />
+          <Route exact path="/signout" component={SignOut} />
         </Switch>
       </div>
     );

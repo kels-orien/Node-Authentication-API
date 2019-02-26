@@ -57,6 +57,12 @@ const NavBar = props => {
           </ListItemIcon>
           <ListItemText primary="Edit Profile" />
         </ListItem>
+        <ListItem button component={Link} to="/signout">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sign Out" />
+        </ListItem>
       </List>
     </Drawer>
   );

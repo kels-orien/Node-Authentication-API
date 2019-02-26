@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
 import * as Cookies from "es-cookie";
 import { Redirect } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
-class TopBarButton extends Component {
+export class SignOut extends Component {
   state = {
     signOut: null
   };
-  logOut() {
+  componentWillMount() {
     let token = Cookies.get("token");
     if (token !== null) {
       Cookies.remove("token");
@@ -21,12 +20,8 @@ class TopBarButton extends Component {
     if (signOut) {
       return <Redirect to={`/signin`} />;
     }
-    return (
-      <Fragment>
-        <Button onClick={this.logOutc}>{this.props.buttonText}</Button>
-      </Fragment>
-    );
+    return <Typography>SignOut Component</Typography>;
   }
 }
 
-export default withStyles(TopBarButton);
+export default SignOut;
