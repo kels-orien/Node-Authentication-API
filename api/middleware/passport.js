@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
   jwtStrategy = require("passport-jwt").Strategy,
+  GitHubStrategy = require("passport-github").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 import User from "../models/user";
 
@@ -104,4 +105,48 @@ passport.use(
       done(err);
     }
   })
+);
+
+// Configure the Facebook strategy for use by Passport.
+//
+// OAuth 2.0-based strategies require a `verify` function which receives the
+// credential (`accessToken`) for accessing the Facebook API on the user's
+// behalf, along with the user's profile.  The function must invoke `cb`
+// with a user object, which will be set at `req.user` in route handlers after
+// authentication.
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "http://localhost:8001/auth/github/callback"
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      // In this example, the user's Facebook profile is supplied as the user
+      // record.  In a production-quality application, the Facebook profile should
+      // be associated with a user record in the application's database, which
+      // allows for account linking and authentication with other identity
+      // providers.
+      try {
+        user = await User.findOne({
+          username: profile.id
+        });
+        if (user) {
+          console.log("username already taken");
+          return done(null, false, {
+            message: "Username already taken"
+          });
+        } else {
+          user = await new User({
+            username: profile.id,
+            email: profile.email
+          }).save();
+          console.log("New user created in Github Passport!");
+        }
+        return cb(null, user);
+      } catch (err) {
+        done(err);
+      }
+    }
+  )
 );
