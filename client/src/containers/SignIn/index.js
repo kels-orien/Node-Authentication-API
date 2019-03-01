@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import formStyle from "../../components/Form";
+import Button from "@material-ui/core/Button";
 import { SubmitButton, LinkButton } from "../../components/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -13,7 +14,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = "http://localhost:8001/signinUser/";
-
+const API_URL_GITHUB = "http://localhost:8001/authGithub";
 const INITIAL_STATE = {
   username: "",
   password: "",
@@ -28,7 +29,11 @@ class SignIn extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
-
+  githubSignIn = async event => {
+    event.preventDefault();
+    let response = await axios.get(API_URL_GITHUB);
+    console.log(response);
+  };
   signinUser = async event => {
     event.preventDefault();
     let response = await axios.post(API_URL, {
@@ -99,6 +104,10 @@ class SignIn extends Component {
                 </Typography>
               </div>
             )}
+            <CardActions className={classes.cardAction}>
+              <Button onClick={this.githubSignIn}>Sign In with Github</Button>
+            </CardActions>
+
             <CardActions className={classes.cardAction}>
               <LinkButton
                 buttonText={`Forgot Password`}

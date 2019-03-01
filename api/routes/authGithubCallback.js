@@ -1,7 +1,7 @@
 import passport from "passport";
 
 module.exports = app => {
-  app.get("/authGithub", (req, res, next) => {
+  app.get("/authGithubCallback", (req, res, next) => {
     passport.authenticate("github", (err, user, info) => {
       if (err) {
         console.log(err);
@@ -12,8 +12,12 @@ module.exports = app => {
         res.send(info.message);
       }
       if (user) {
-        console.log("New user created!");
-        res.status(200).send({ message: "user created" });
+        console.log("New user created in Callback!");
+        res.status(200).send({
+          email: user.email,
+          username: user.username,
+          message: "user created"
+        });
       }
     })(req, res, next);
   });

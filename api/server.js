@@ -22,7 +22,6 @@ if (app.get("env") === "production") {
 } else {
   app.use(logger("dev"));
 }
-app.use(cors());
 
 const port = process.env.PORT || 8001;
 
@@ -30,6 +29,7 @@ app.set("port", port);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
+app.use(cors());
 require("./middleware/passport");
 require("./routes/signupUser")(app);
 require("./routes/signinUser")(app);
@@ -38,6 +38,8 @@ require("./routes/updateUser")(app);
 require("./routes/password-reset")(app);
 require("./routes/forgotPassword")(app);
 require("./routes/updatePasswordViaEmail")(app);
+require("./routes/authGithub")(app);
+require("./routes/authGithubCallback")(app);
 
 app.get("/", (req, res, next) => {
   res.send("Node-Authentication Express Server running!");
