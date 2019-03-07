@@ -128,22 +128,23 @@ passport.use(
       // allows for account linking and authentication with other identity
       // providers.
       try {
+        let user;
+
         user = await User.findOne({
-          username: profile.id
+          username: profile.id,
+          email: profile._json.email
         });
         if (user) {
-          console.log("username already taken");
-          return done(null, false, {
-            message: "Username already taken"
-          });
+          console.log("user exists, logging in");
+          return done(null, user);
         } else {
           user = await new User({
             username: profile.id,
-            email: profile.email
+            email: profile._json.email
           }).save();
           console.log("New user created in Github Passport!");
         }
-        return cb(null, user);
+        return done(null, user);
       } catch (err) {
         done(err);
       }

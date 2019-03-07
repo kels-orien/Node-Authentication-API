@@ -12,7 +12,7 @@ module.exports = app => {
         res.send(info.message);
       }
       if (user) {
-        console.log("New user created!");
+        console.log("New user created!: ", user);
         res.status(200).send({ message: "user created" });
       }
     })(req, res, next);

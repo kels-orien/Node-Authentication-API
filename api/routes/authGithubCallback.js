@@ -7,16 +7,12 @@ module.exports = app => {
         console.log(err);
       }
 
-      if (info != undefined) {
-        console.log(info.message);
-        res.send(info.message);
-      }
       if (user) {
         console.log("New user created in Callback!");
         res.status(200).send({
           email: user.email,
           username: user.username,
-          message: "user created"
+          message: "user login via Github"
         });
       }
     })(req, res, next);
