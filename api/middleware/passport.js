@@ -107,11 +107,11 @@ passport.use(
   })
 );
 
-// Configure the Facebook strategy for use by Passport.
+// Configure the Github strategy for use by Passport.
 //
 // OAuth 2.0-based strategies require a `verify` function which receives the
-// credential (`accessToken`) for accessing the Facebook API on the user's
-// behalf, along with the user's profile.  The function must invoke `cb`
+// credential (`accessToken`) for accessing the Github API on the user's
+// behalf, along with the user's profile.  The function must invoke `done`
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 passport.use(
@@ -122,8 +122,8 @@ passport.use(
       callbackURL: "http://localhost:8001/authGithubCallback"
     },
     async (accessToken, refreshToken, profile, done) => {
-      // In this example, the user's Facebook profile is supplied as the user
-      // record.  In a production-quality application, the Facebook profile should
+      // In this example, the user's Github profile is supplied as the user
+      // record.  In a production-quality application, the Github profile should
       // be associated with a user record in the application's database, which
       // allows for account linking and authentication with other identity
       // providers.
