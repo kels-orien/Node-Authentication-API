@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
   jwtStrategy = require("passport-jwt").Strategy,
-  GitHubStrategy = require("passport-github").Strategy,
+  GitHubStrategy = require("passport-github2").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 import User from "../models/user";
 
