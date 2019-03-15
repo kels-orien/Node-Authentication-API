@@ -21,6 +21,8 @@ Github authentication provider.
 
 ## Starting This App
 For the api server, type the following commands from the root directory:
+
+
 ```cd api```
 
 ```npm run start```
