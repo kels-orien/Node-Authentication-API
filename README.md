@@ -21,9 +21,9 @@ Github authentication provider.
 
 ## Starting This App
 For the api server, type the following commands from the root directory:
-### `cd api`
+```cd api```
 
-### `npm run start`
+```npm run start```
 
 
 Runs the app in the development mode.<br>
@@ -31,9 +31,9 @@ Open [http://localhost:8001](http://localhost:8001) to view it in the browser.
 
 for the client react app, type the following commands from the root directory:
 
-### `cd client`
+ ```cd client```
 
-### `npm start`
+ ```npm start```
 
 The app starts, open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
